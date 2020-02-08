@@ -2,7 +2,7 @@
     "name": "Evolution Gaming",
     "version": "0.1",
     "description": "Extends the functionality of Evolution Gaming games.",
-    "permissions": ["declarativeContent", "storage"],
+    "permissions": ["notifications", "declarativeContent", "storage"],
     "background": {
         "scripts": ["background.js"],
         "persistent": false
