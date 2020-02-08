@@ -10,13 +10,22 @@ chrome.runtime.onInstalled.addListener(function() {
 		chrome.declarativeContent.onPageChanged.addRules([{
 			conditions: [
 				new chrome.declarativeContent.PageStateMatcher({
-					pageUrl: {hostEquals: 'developer.chrome.com'},
+					pageUrl: {hostEquals: 'localhost'},
 				})
 			],
 			actions: [
 				new chrome.declarativeContent.ShowPageAction()
 			]
 		}]);
+	});
+
+	// Let's inject our script as soon as the page is loaded, but before any assets
+	chrome.webNavigation.onCommitted.addListener((e) => {
+		chrome.tabs.executeScript({
+			file: "content.js"
+		});
+	}, {
+		hostContains: "localhost",
 	});
 
 	// Adds a message listener to listen for messages from page_action or any 
@@ -34,11 +43,6 @@ chrome.runtime.onInstalled.addListener(function() {
 			
 				});
 				break;
-			}
-			case "inject": {
-				chrome.tabs.executeScript({
-					file: "content.js"
-				});
 			}
 			default: {
 				sendResponse({error: "Invalid request type."});

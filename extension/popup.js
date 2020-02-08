@@ -1,8 +1,3 @@
-// As soon as the extension is clicked, we inject our script
-chrome.runtime.sendMessage({
-    type: "inject"
-});
-
 let button = document.getElementById("showNotification");
 
 button.addEventListener("click", () => {
