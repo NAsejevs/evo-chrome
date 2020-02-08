@@ -22,11 +22,15 @@ chrome.runtime.onInstalled.addListener(function() {
 	// Let's inject our script as soon as the page is loaded, but before any assets
 	chrome.webNavigation.onCommitted.addListener((e: chrome.webNavigation.WebNavigationFramedCallbackDetails) => {
 		chrome.tabs.executeScript({
-			file: "js/content_script.js"
+			file: "js/content_script.js",
 		});
 	}, {
-		hostContains: "localhost",
-	} as any);
+		url: [
+			{
+				hostContains: "localhost",
+			},
+		],
+	});
 
 	// Adds a message listener to listen for messages from page_action or any 
 	// injected script.
