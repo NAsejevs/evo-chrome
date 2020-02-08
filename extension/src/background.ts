@@ -20,9 +20,9 @@ chrome.runtime.onInstalled.addListener(function() {
 	});
 
 	// Let's inject our script as soon as the page is loaded, but before any assets
-	chrome.webNavigation.onCommitted.addListener((e) => {
+	chrome.webNavigation.onCommitted.addListener((e: chrome.webNavigation.WebNavigationFramedCallbackDetails) => {
 		chrome.tabs.executeScript({
-			file: "content.js"
+			file: "js/content_script.js"
 		});
 	}, {
 		hostContains: "localhost",
