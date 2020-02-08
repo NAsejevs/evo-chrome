@@ -13,7 +13,9 @@ chrome.runtime.onInstalled.addListener(function() {
 					pageUrl: {hostEquals: 'developer.chrome.com'},
 				})
 			],
-			actions: [new chrome.declarativeContent.ShowPageAction()]
+			actions: [
+				new chrome.declarativeContent.ShowPageAction()
+			]
 		}]);
 	});
 
@@ -32,6 +34,11 @@ chrome.runtime.onInstalled.addListener(function() {
 			
 				});
 				break;
+			}
+			case "inject": {
+				chrome.tabs.executeScript({
+					file: "content.js"
+				});
 			}
 			default: {
 				sendResponse({error: "Invalid request type."});
