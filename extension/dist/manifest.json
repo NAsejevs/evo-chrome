@@ -1,0 +1,26 @@
+{
+    "name": "Evolution Gaming",
+    "version": "0.1",
+    "description": "Extends the functionality of Evolution Gaming games.",
+    "permissions": ["webNavigation", "activeTab", "notifications", "declarativeContent", "storage"],
+    "background": {
+        "scripts": ["js/background.js"],
+        "persistent": false
+    },
+    "page_action": {
+        "default_popup": "public/popup.html",
+        "default_icon": {
+            "16": "images/evo_16.png",
+            "32": "images/evo_32.png",
+            "48": "images/evo_48.png",
+            "128": "images/evo_128.png"
+        }
+    },
+    "icons": {
+        "16": "images/evo_16.png",
+        "32": "images/evo_32.png",
+        "48": "images/evo_48.png",
+        "128": "images/evo_128.png"
+    },
+    "manifest_version": 2
+}
