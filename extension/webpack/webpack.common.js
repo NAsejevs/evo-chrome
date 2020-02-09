@@ -22,11 +22,15 @@ module.exports = {
                 use: {
                   loader: "babel-loader"
                 }
-            }
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
         ]
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js']
+        extensions: ['.ts', '.tsx', '.js', '.css']
     },
     plugins: [
         // exclude locale files in moment
