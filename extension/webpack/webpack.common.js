@@ -14,18 +14,14 @@ module.exports = {
         path: path.join(__dirname, '../dist/js'),
         filename: '[name].js'
     },
-    optimization: {
-        splitChunks: {
-            name: 'vendor',
-            chunks: "initial"
-        }
-    },
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/
+                test: /\.(ts|tsx)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader"
+                }
             }
         ]
     },

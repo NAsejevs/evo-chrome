@@ -16,6 +16,13 @@
     "url": "https://github.com/chibat/chrome-extension-typescript-starter.git"
   },
   "dependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "@babel/preset-react": "^7.8.3",
+    "@babel/preset-typescript": "^7.8.3",
+    "babel-loader": "^8.0.6",
     "jquery": "^3.4.1",
     "moment": "~2.24.0",
     "react": "^16.12.0",
@@ -32,7 +39,7 @@
     "rimraf": "^3.0.0",
     "ts-jest": "^24.2.0",
     "ts-loader": "^6.2.1",
-    "typescript": "~3.7.3",
+    "typescript": "^3.7.5",
     "webpack": "~4.41.2",
     "webpack-cli": "~3.3.10",
     "webpack-merge": "~4.2.2"
