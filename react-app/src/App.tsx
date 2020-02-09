@@ -2,33 +2,46 @@ import React, { ChangeEvent } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
 
 		this.state = {
-			receivedData: {}
+			username: ""
 		}
 	}
 
 	componentDidMount() {
-		window.addEventListener("message", (message) => {
-			const data = message.data;
-			if(data.from !== "extension") {
+		// Send the content script our state as soon as it is injected
+		window.addEventListener("message", (event) => {
+			if (event.source !== window) {
 				return;
 			}
 
-			console.log(data.data);
+			const data = event.data;
+			switch(data.type) {
+				case "injected": {
+					window.postMessage({
+						type: "state",
+						payload: this.state,
+					}, "*");
+				}
+			}
 		});
 	}
 
-	onChange = (e: ChangeEvent<HTMLInputElement>) => {
-		if(e.target) {
-			window.postMessage({
-				from: "page",
-				data: e.target.value
-			}, "*");
-		}
+	componentDidUpdate() {
+		// Update the content script with our state as soon as any changes occur.
+		window.postMessage({
+			type: "state",
+			payload: this.state,
+		}, "*");
+	}
+
+	onChangeUsername = (e: ChangeEvent<HTMLInputElement>) => {
+		this.setState({
+			username: e.target.value,
+		});
 	}
 
 	render() {
@@ -36,9 +49,13 @@ class App extends React.Component {
 			<div className="App">
 				<header className="App-header">
 					<img src={logo} className="App-logo" alt="logo" />
-					<input
-						onChange={this.onChange}
-					/>
+					<div>
+						<span>Username: </span>
+						<input
+							onChange={this.onChangeUsername}
+							value={this.state.username}
+						/>
+					</div>
 				</header>
 			</div>
 		);

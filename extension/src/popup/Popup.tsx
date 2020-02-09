@@ -1,51 +1,42 @@
 import React from "react";
 
-interface IPopupState {
-    counter: number;
-}
-
-class Popup extends React.Component<any, IPopupState> {
-    private buttonRef: HTMLButtonElement | null = null;
-
+class Popup extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
 
         this.state = {
-            counter: 0,
+            username: "",
         }
     }
 
     componentDidMount() {
-        this.setState({
-            counter: this.state.counter + 1,
+        // As soon as the popup is opened, let's fetch the store from background
+        chrome.runtime.sendMessage({type: "getStore"}, (response) => {
+            this.setState({
+                ...response,
+            });
+        });
+
+        // Update the store each time an event is received
+        chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+            switch(request.type) {
+                case "setStore": {
+                    this.setState({
+                        ...request.payload,
+                    });
+                }
+            }
         });
     }
 
     render() {
         return (
             <div>
-                <span>{this.state.counter}</span>
-                <button ref={this.setButtonRef} onClick={this.showNotification}>
-                    SHOW NOTIFICATION
-                </button>
+                <div>
+                    <span>Username: {this.state.username}</span>
+                </div>
             </div>
         )
-    }
-
-    setButtonRef = (ref: HTMLButtonElement | null) => {
-        this.buttonRef = ref;
-
-        if(this.buttonRef) {
-            chrome.storage.sync.get('color', (data) => {
-                this.buttonRef.style.backgroundColor = data.color;
-            });
-        }
-    }
-
-    showNotification = () => {
-        chrome.runtime.sendMessage({
-            type: "notification"
-        });
     }
 }
 
