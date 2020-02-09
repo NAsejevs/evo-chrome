@@ -24,6 +24,12 @@ chrome.runtime.onInstalled.addListener(function() {
 		chrome.tabs.executeScript({
 			file: "js/content_script.js",
 		});
+	}, {
+		url: [
+			{
+				hostContains: "localhost",
+			},
+		],
 	});
 
 	// Adds a message listener to listen for messages from page_action or any 

@@ -1,4 +1,17 @@
-let button = document.getElementById("showNotification");
+import React from "react";
+import ReactDOM from "react-dom";
+
+// import Popup from "./Popup";
+
+const App = () => {
+    return (<p>Hello MOTHERUCKER</p>);
+}
+
+ReactDOM.render(<App/>, document.getElementById("root"));
+
+// console.log(ReactDOM.render);
+
+let button = document.getElementById("root");
 
 button.addEventListener("click", () => {
     // If the user clicks the button, let's show a test notification
