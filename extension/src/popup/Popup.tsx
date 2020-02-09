@@ -29,11 +29,20 @@ class Popup extends React.Component<any, any> {
         });
     }
 
+    signIn = () => {
+        // Send out a message to content script telling it to click the sign in button
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            console.log(tabs);
+            chrome.tabs.sendMessage(tabs[0].id, {type: "signIn"});
+        });
+    }
+
     render() {
         return (
             <div>
                 <div>
                     <span>Username: {this.state.username}</span>
+                    <button onClick={this.signIn}>Sign In</button>
                 </div>
             </div>
         )

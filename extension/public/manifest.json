@@ -5,7 +5,7 @@
     "permissions": ["*://*/*", "webNavigation", "activeTab", "notifications", "declarativeContent", "storage"],
     "background": {
         "scripts": ["js/background.js"],
-        "persistent": false
+        "persistent": true
     },
     "page_action": {
         "default_popup": "popup.html",

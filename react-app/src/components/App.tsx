@@ -1,6 +1,7 @@
 import React, { ChangeEvent } from 'react';
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import './App.css';
+import socket from "../utils/socket";
 
 class App extends React.Component<any, any> {
 	constructor(props: any) {
@@ -28,6 +29,21 @@ class App extends React.Component<any, any> {
 				}
 			}
 		});
+
+		
+		setTimeout(() => {
+			// const wrappedWebsocket = new WebSocket("ws://localhost:3001");
+			
+			socket.connect();
+	
+			socket.on("connect", () => {
+				console.log("connected to socket!");
+			});
+	
+			socket.on("messages", (messages: Array<string>) => {
+				console.log(messages);
+			});
+		}, 2000)
 	}
 
 	componentDidUpdate() {
@@ -44,6 +60,10 @@ class App extends React.Component<any, any> {
 		});
 	}
 
+	signIn = () => {
+		console.log("SIGNING IN!");
+	}
+
 	render() {
 		return (
 			<div className="App">
@@ -56,6 +76,8 @@ class App extends React.Component<any, any> {
 							value={this.state.username}
 						/>
 					</div>
+					<br/>
+					<button data-role="sign-in-button" onClick={this.signIn}>Sign In</button>
 				</header>
 			</div>
 		);

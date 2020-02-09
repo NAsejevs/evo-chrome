@@ -5,6 +5,9 @@ window.postMessage({
     type: "injected",
 }, "*");
 
+console.log("injected");
+const signInButton = document.querySelector("[data-role=sign-in-button]");
+
 window.addEventListener("message", (event) => {
     if (event.source != window) {
         return;
@@ -22,3 +25,13 @@ window.addEventListener("message", (event) => {
         }
     }
 }, false);
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    console.log(request);
+    switch(request.type) {
+        case "signIn": {
+            console.log("called");
+            signInButton.click();
+        }
+    }
+});
